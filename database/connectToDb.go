@@ -25,9 +25,14 @@ func connectDB() *gorm.DB {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	db_URL := os.Getenv("DNS")
-	db, err := gorm.Open(postgres.Open(db_URL), &gorm.Config{})
+	dns := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_NAME"),
+	)
+	db, err := gorm.Open(postgres.Open(dns), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
