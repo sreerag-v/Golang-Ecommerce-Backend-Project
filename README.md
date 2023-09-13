@@ -21,5 +21,11 @@ Clone this repository to your local machine:
 ```bash
 https://github.com/Sreerag-V/Golang-Ecommerce-Backend-Project.git
 ```
+# UP & Run Project
+Run this project in your local repository using Docker(if Docker installed in your system) or Go run command
+```bash
+docker compose up -d
+docker compose down
+```
 # Run 
 go run main.go
