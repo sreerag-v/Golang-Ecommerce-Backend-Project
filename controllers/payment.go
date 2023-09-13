@@ -129,13 +129,12 @@ func CashOnDelivery(c *gin.Context) {
 }
 
 func Razorpay(c *gin.Context) {
-	id := 2
-
-	// if err != nil {
-	// 	c.JSON(400, gin.H{
-	// 		"Error": "Error in string conversion",
-	// 	})
-	// }
+	id, err := strconv.Atoi(c.GetString("userid"))
+	if err != nil {
+		c.JSON(400, gin.H{
+			"Error": "Error in string conversion",
+		})
+	}
 
 	DB := database.InitDB()
 
@@ -151,7 +150,7 @@ func Razorpay(c *gin.Context) {
 	// fetch the total price from the table carts
 	var amount uint
 	row := DB.Table("carts").Where("userid = ?", id).Select("SUM(total_price)").Row()
-	err := row.Scan(&amount)
+	err = row.Scan(&amount)
 
 	if err != nil {
 		c.JSON(400, gin.H{
