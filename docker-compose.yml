@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  postgresDB:
+    container_name: psql
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - DATABASE_HOST=${DB_HOST}
+    volumes:
+      - data:/var/lib/ecom
+    ports:
+      - "5433:5432"
+  
+  api:
+    build: .
+    depends_on:
+      - postgresDB
+    restart: on-failure
+    ports:
+      - "8080:8080"
+  
+volumes:
+  data:
